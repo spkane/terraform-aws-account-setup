@@ -22,3 +22,8 @@ output "monitor_readonly_user_secret_access_key" {
   description = "Secret access key for the monitor readonly user"
   value       = "${element(concat(aws_iam_access_key.monitor_readonly_user_access_key.*.secret, list("")), 0)}"
 }
+
+output "admin_group_name" {
+  description = "admin group name"
+  value       = "${element(concat(aws_iam_group.*.name, list("")), 0)}"
+}
