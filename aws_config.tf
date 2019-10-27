@@ -6,7 +6,7 @@ resource "aws_config_configuration_recorder" "aws_config_recorder" {
     include_global_resource_types = true
   }
 
-  role_arn = aws_iam_role.aws_config_iam_role.arn
+  role_arn = aws_iam_role.aws_config_iam_role[count.index].arn
 }
 
 resource "aws_config_configuration_recorder_status" "aws_config_recorder_status" {
@@ -33,8 +33,8 @@ resource "aws_sns_topic" "aws_config_updates_topic" {
 resource "aws_config_delivery_channel" "aws_config_delivery_channel" {
   count          = var.enable_aws_config
   name           = "terraform_aws_config_delivery_channel"
-  s3_bucket_name = aws_s3_bucket.aws_config_configuration_bucket.bucket
-  sns_topic_arn  = aws_sns_topic.aws_config_updates_topic.arn
+  s3_bucket_name = aws_s3_bucket.aws_config_configuration_bucket[count.index].bucket
+  sns_topic_arn  = aws_sns_topic.aws_config_updates_topic[count.index].arn
   depends_on     = ["aws_s3_bucket.aws_config_configuration_bucket", "aws_sns_topic.aws_config_updates_topic"]
 }
 
@@ -50,7 +50,7 @@ resource "aws_iam_role" "aws_config_iam_role" {
 
 resource "aws_iam_role_policy_attachment" "aws_config_iam_policy_attachment" {
   count      = var.enable_aws_config
-  role       = aws_iam_role.aws_config_iam_role.name
+  role       = aws_iam_role.aws_config_iam_role[count.index].name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSConfigRole"
 }
 
@@ -58,8 +58,8 @@ data "template_file" "aws_config_iam_policy_document" {
   template = "${file("${path.module}/policies/aws_config_policy.tpl")}"
   count    = var.enable_aws_config
 
-  vars {
-    sns_topic_arn = aws_sns_topic.aws_config_updates_topic.arn
+  vars = {
+    sns_topic_arn = aws_sns_topic.aws_config_updates_topic[count.index].arn
     s3_bucket_arn = aws_s3_bucket.aws_config_configuration_bucket.arn
   }
 }
@@ -75,7 +75,7 @@ resource "null_resource" "sns_subscribe" {
   depends_on = ["aws_sns_topic.aws_config_updates_topic"]
 
   triggers = {
-    sns_topic_arn = aws_sns_topic.aws_config_updates_topic.arn
+    sns_topic_arn = aws_sns_topic.aws_config_updates_topic[count.index].arn
   }
 
   count = "${length(var.aws_config_notification_emails) != 0 && var.enable_aws_config  ? length(var.aws_config_notification_emails) : 0 }"

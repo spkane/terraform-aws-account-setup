@@ -15,7 +15,9 @@ resource "aws_cloudtrail" "cloudtrail" {
   include_global_service_events = var.include_global_service_events
   enable_log_file_validation    = var.enable_log_file_validation
   is_multi_region_trail         = var.is_multi_region_trail
-  event_selector                = var.event_selector
+  # It looks like event selector support needs refactoring
+  # for tf12 and aws provider 2.x
+  #event_selector                = var.event_selector
 
   tags = var.tags
 }
@@ -42,7 +44,7 @@ resource "aws_s3_bucket" "cloudtrail_bucket" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.cloudtrail_bucket_key.arn
+        kms_master_key_id = aws_kms_key.cloudtrail_bucket_key[count.index].arn
         sse_algorithm     = "aws:kms"
       }
     }
