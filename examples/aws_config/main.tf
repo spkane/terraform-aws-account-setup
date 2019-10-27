@@ -8,12 +8,13 @@ terraform {
 }
 
 provider "aws" {
-  region  = "eu-west-1"
-  version = "~> 1.31"
+  region  = "us-east-1"
+  version = "~> 2.33.0"
+  profile = "my-aws-profile"
 }
 
 provider "template" {
-  version = "1.0"
+  version = "~> 2.1.2"
 }
 
 module "account_setup" {

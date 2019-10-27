@@ -135,6 +135,12 @@ variable "monitor_readonly_user_name" {
 }
 
 ### AWS Config
+variable "config_sns_region" {
+  type        = "string"
+  description = "The region where the config/sns notifcation is located"
+  default     = ""
+}
+
 variable "aws_config_notification_emails" {
   description = "A list of email addresses for that will receive AWS Config changes notifications"
   default     = []
