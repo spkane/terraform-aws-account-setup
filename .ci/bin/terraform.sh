@@ -5,7 +5,7 @@ set -e -u
 TARGET_DIR="${HOME}/bin"
 PATH=${PATH}:${TARGET_DIR}
 
-TERRAFORM_VERSION=${1:-"0.12.1"}
+TERRAFORM_VERSION=${1:-"0.12.12"}
 OS=${2:-"darwin"}
 TERRAFORM_URL="https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_${OS}_amd64.zip"
 TERRAFORM_COMMAND="${TARGET_DIR}/terraform-${TERRAFORM_VERSION}"
