@@ -9,7 +9,7 @@ resource "aws_config_config_rule" "require_tag_rule" {
 
   input_parameters = <<PARAMS
 {
-    "tag1Key":var.tag1Key
+    "tag1Key":"${var.tag1Key}"
 }
 
   PARAMS

@@ -12,7 +12,7 @@ resource "aws_config_configuration_recorder" "aws_config_recorder" {
 
 resource "aws_config_configuration_recorder_status" "aws_config_recorder_status" {
   count      = var.enable_aws_config
-  name       = aws_config_configuration_recorder.aws_config_recorder.name
+  name       = aws_config_configuration_recorder.aws_config_recorder[count.index].name
   is_enabled = true
   depends_on = ["aws_config_delivery_channel.aws_config_delivery_channel"]
 }
@@ -68,8 +68,8 @@ data "template_file" "aws_config_iam_policy_document" {
 resource "aws_iam_role_policy" "aws_config_iam_policy" {
   count  = var.enable_aws_config
   name   = "terraform-awsconfig-policy"
-  role   = aws_iam_role.aws_config_iam_role.id
-  policy = data.template_file.aws_config_iam_policy_document.rendered
+  role   = aws_iam_role.aws_config_iam_role[count.index].id
+  policy = data.template_file.aws_config_iam_policy_document[count.index].rendered
 }
 
 resource "null_resource" "sns_subscribe" {
