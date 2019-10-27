@@ -27,7 +27,7 @@ module "alarm_root_api_used" {
   source                    = "./_modules/user_access_alarm"
   alarm_name                = "Root API Used"
   alarm_description         = "A root user has used the API"
-  alarm_actions             = aws_sns_topic.aws_config_updates_topic[0].arn}
+  alarm_actions             = aws_sns_topic.aws_config_updates_topic[0].arn
   cloudwatch_log_group      = aws_cloudwatch_log_group.cloudtrail.name
   cloudwatch_filter_name    = "rootApiUsage"
   cloudwatch_filter_pattern = "{ $.userIdentity.type = \"Root\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
