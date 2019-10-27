@@ -26,7 +26,7 @@ resource "aws_s3_bucket" "aws_config_configuration_bucket" {
 }
 
 resource "aws_sns_topic" "aws_config_updates_topic" {
-  count = "var.enable_aws_config
+  count = var.enable_aws_config
   name  = "${data.aws_caller_identity.current.account_id}-terraform-aws-config-updates"
 }
 

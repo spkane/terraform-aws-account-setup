@@ -1,7 +1,7 @@
 resource "aws_iam_group" "admin" {
   count = "${var.enable_admin_group ? 1 : 0}"
 
-  name = var.admin_group_name}"
+  name = var.admin_group_name
 }
 
 resource "aws_iam_group_policy_attachment" "mfa" {
