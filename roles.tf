@@ -14,7 +14,7 @@ resource "aws_iam_role" "nr_integration_role" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "01"
+          "sts:ExternalId": "292336"
         }
       }
     }
