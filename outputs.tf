@@ -25,5 +25,5 @@ output "monitor_readonly_user_secret_access_key" {
 
 output "admin_group_name" {
   description = "admin group name"
-  value       = "${element(concat(aws_iam_group.*.name, list("")), 0)}"
+  value       = "${element(concat(aws_iam_group.admin.*.name, list("")), 0)}"
 }
