@@ -1,3 +1,12 @@
+terraform {
+  required_version = "> 0.12.0"
+  required_providers {
+    aws = "~> 2.33.0"
+    template = "~> 2.1.2"
+    null = "~> 2.1.2"
+  }
+}
+
 provider "aws" {
   region  = "eu-west-1"
   version = "~> 1.31"
@@ -5,14 +14,6 @@ provider "aws" {
 
 provider "template" {
   version = "1.0"
-}
-
-terraform {
-  required_version = "> 0.12.0"
-  required_providers {
-    aws = "~> 2.33.0"
-    template = "~> 2.1.2"
-  }
 }
 
 module "account_setup" {
