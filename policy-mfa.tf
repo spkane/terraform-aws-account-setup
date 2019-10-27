@@ -11,5 +11,5 @@ resource "aws_iam_policy" "mfa" {
   path        = "/"
   description = "Policy to enforce MFA"
 
-  policy = "${data.template_file.force_mfa.rendered}"
+  policy = data.template_file.force_mfa.rendered
 }
