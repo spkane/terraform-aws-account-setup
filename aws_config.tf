@@ -2,7 +2,8 @@ resource "aws_config_configuration_recorder" "aws_config_recorder" {
   count = var.enable_aws_config
   name  = "terraform_config_recorder"
 
-  recording_group = {
+  recording_group {
+    all_supported = true
     include_global_resource_types = true
   }
 
@@ -60,7 +61,7 @@ data "template_file" "aws_config_iam_policy_document" {
 
   vars = {
     sns_topic_arn = aws_sns_topic.aws_config_updates_topic[count.index].arn
-    s3_bucket_arn = aws_s3_bucket.aws_config_configuration_bucket.arn
+    s3_bucket_arn = aws_s3_bucket.aws_config_configuration_bucket[count.index].arn
   }
 }
 
@@ -81,6 +82,6 @@ resource "null_resource" "sns_subscribe" {
   count = "${length(var.aws_config_notification_emails) != 0 && var.enable_aws_config  ? length(var.aws_config_notification_emails) : 0 }"
 
   provisioner "local-exec" {
-    command = "aws sns subscribe --topic-arn ${aws_sns_topic.aws_config_updates_topic.arn} --protocol email --notification-endpoint ${element(var.aws_config_notification_emails, count.index)}"
+    command = "aws sns subscribe --topic-arn ${aws_sns_topic.aws_config_updates_topic[count.index].arn} --protocol email --notification-endpoint ${element(var.aws_config_notification_emails, count.index)}"
   }
 }
