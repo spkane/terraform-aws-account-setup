@@ -15,7 +15,7 @@ resource "aws_cloudtrail" "cloudtrail" {
   include_global_service_events = var.include_global_service_events
   enable_log_file_validation    = var.enable_log_file_validation
   is_multi_region_trail         = var.is_multi_region_trail
-  # It looks like event selector support needs refactoring
+  # FIXME: It looks like event selector support needs refactoring
   # for tf12 and aws provider 2.x
   #event_selector                = var.event_selector
 
