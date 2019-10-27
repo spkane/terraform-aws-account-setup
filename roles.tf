@@ -1,12 +1,3 @@
-# create generic read-only role
-module "role_generic_read_only" {
-  source       = "./../okta_role"
-  name         = "GenericReadOnly"
-  description  = "Generic Read-Only Role"
-  okta_idp_arn = "${module.okta_idp.idp_arn}"
-  policy_arns  = ["arn:aws:iam::aws:policy/ReadOnlyAccess"]
-}
-
 # This section holds the New  Relic infrastructure integraiton role
 resource "aws_iam_role" "nr_integration_role" {
   name = "NewRelicInfrastructure-Integrations"
