@@ -135,9 +135,9 @@ variable "monitor_readonly_user_name" {
 }
 
 ### AWS Config
-variable "config_sns_region" {
+variable "config_sns_profile" {
   type        = "string"
-  description = "The region where the config/sns notifcation is located"
+  description = "The profile to use for the config/sns notifcation subscription command"
   default     = ""
 }
 

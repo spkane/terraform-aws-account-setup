@@ -82,6 +82,6 @@ resource "null_resource" "sns_subscribe" {
   count = "${length(var.aws_config_notification_emails) != 0 && var.enable_aws_config  ? length(var.aws_config_notification_emails) : 0 }"
 
   provisioner "local-exec" {
-    command = "aws sns subscribe --region ${var.config_sns_region} --topic-arn ${aws_sns_topic.aws_config_updates_topic[count.index].arn} --protocol email --notification-endpoint ${element(var.aws_config_notification_emails, count.index)}"
+    command = "aws sns subscribe --profile ${var.config_sns_profile} --topic-arn ${aws_sns_topic.aws_config_updates_topic[count.index].arn} --protocol email --notification-endpoint ${element(var.aws_config_notification_emails, count.index)}"
   }
 }
