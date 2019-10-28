@@ -10,7 +10,7 @@ output "trail_arn" {
 
 output "nr_infra_policy_arn" {
   description = "New Relic Infraastructure Policy ARN"
-  value       = aws_iam_role.nr_integration_role
+  value       = aws_iam_role.nr_integration_role.arn
 }
 
 output "monitor_readonly_user_arn" {
