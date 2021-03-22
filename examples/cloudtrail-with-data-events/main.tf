@@ -22,10 +22,9 @@ module "account_setup" {
 
   # Cloudtrail (optional)
   enable_cloudtrail        = true
-  cloudtrail_bucket_region = "eu-west-1"
   trail_name               = "my-account-trail"
 
-  # Configure Data events below example 
+  # Configure Data events below example
   event_selector = [{
     read_write_type           = "All"
     include_management_events = true
