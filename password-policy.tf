@@ -1,5 +1,5 @@
 resource "aws_iam_account_password_policy" "pasword_policy" {
-  count = "${var.enable_account_password_policy ? 1 : 0}"
+  count = var.enable_account_password_policy ? 1 : 0
 
   minimum_password_length        = var.minimum_password_length
   password_reuse_prevention      = var.password_reuse_prevention

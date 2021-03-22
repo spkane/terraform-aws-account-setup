@@ -7,10 +7,10 @@ resource "aws_cloudwatch_log_group" "cloudtrail" {
 # create CloudWatch log stream
 resource "aws_cloudwatch_log_stream" "cloudtrail" {
   name           = "${data.aws_caller_identity.current.account_id}_CloudTrail"
-  log_group_name = "${aws_cloudwatch_log_group.cloudtrail.name}"
+  log_group_name = aws_cloudwatch_log_group.cloudtrail.name
 }
 
-# FIXME: We should not be using index [0] below, 
+# FIXME: We should not be using index [0] below,
 # becuase some people may not have this reqs enabled.
 # but it is fine for us.
 module "alarm_root_console_login" {

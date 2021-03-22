@@ -44,11 +44,11 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "attach-budget-policy" {
-  role       = "${aws_iam_role.nr_integration_role.name}"
-  policy_arn = "${aws_iam_policy.integration_budget.arn}"
+  role       = aws_iam_role.nr_integration_role.name
+  policy_arn = aws_iam_policy.integration_budget.arn
 }
 
 resource "aws_iam_role_policy_attachment" "attach-readonly-policy" {
-  role       = "${aws_iam_role.nr_integration_role.name}"
+  role       = aws_iam_role.nr_integration_role.name
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }

@@ -76,19 +76,19 @@ variable "read_only_group_name" {
 ### CLOUDTRAIL
 
 variable "cloudtrail_bucket_region" {
-  type        = "string"
+  type        = string
   description = "The region where the cloudtrail bucket will be created or is located, required if cloudtrail is enabled"
   default     = ""
 }
 
 variable "cloudtrail_bucket" {
-  type        = "string"
+  type        = string
   description = "The name of the cloudtrail bucket"
   default     = ""
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map
   description = "Map of tags to apply on the resources"
   default     = {}
 }
@@ -114,7 +114,7 @@ variable "is_multi_region_trail" {
 }
 
 variable "event_selector" {
-  type        = "list"
+  type        = list
   description = "Specifies an event selector for enabling data event logging, It needs to be a list of map values. See: https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for details on this map variable"
   default     = []
 }
@@ -136,7 +136,7 @@ variable "monitor_readonly_user_name" {
 
 ### AWS Config
 variable "config_sns_profile" {
-  type        = "string"
+  type        = string
   description = "The profile to use for the config/sns notifcation subscription command"
   default     = ""
 }
@@ -144,7 +144,7 @@ variable "config_sns_profile" {
 variable "aws_config_notification_emails" {
   description = "A list of email addresses for that will receive AWS Config changes notifications"
   default     = []
-  type        = "list"
+  type        = list
 }
 
 variable "enable_aws_config" {
