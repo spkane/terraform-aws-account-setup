@@ -12,10 +12,6 @@ provider "aws" {
   profile = "my-aws-profile"
 }
 
-provider "template" {
-  version = "2.1.0"
-}
-
 module "account_setup" {
   source = "../../"
 
