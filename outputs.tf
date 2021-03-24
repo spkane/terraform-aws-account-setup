@@ -1,16 +1,11 @@
 output "mfa_policy_arn" {
-  description = "MFA Policy ARN"
+  description = "MFA Policy arn."
   value       = element(concat(aws_iam_policy.mfa.*.arn, list("")), 0)
 }
 
 output "trail_arn" {
-  description = "Cloud trail ARN"
+  description = "Cloud trail arn."
   value       = element(concat(aws_cloudtrail.cloudtrail.*.arn, list("")), 0)
-}
-
-output "nr_infra_policy_arn" {
-  description = "New Relic Infraastructure Policy ARN"
-  value       = aws_iam_role.nr_integration_role.arn
 }
 
 output "monitor_readonly_user_arn" {

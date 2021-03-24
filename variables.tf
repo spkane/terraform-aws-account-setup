@@ -20,7 +20,7 @@ variable "admin_group_name" {
 
 variable "password_reuse_prevention" {
   description = "The number of previous passwords that users are prevented from reusing."
-  default     = true
+  default     = 1
 }
 
 variable "minimum_password_length" {
@@ -74,6 +74,12 @@ variable "read_only_group_name" {
 }
 
 ### CLOUDTRAIL
+
+variable "cloudtrail_bucket_region" {
+  type        = string
+  description = "The region where the cloudtrail bucket will be created or is located, required if cloudtrail is enabled"
+  default     = ""
+}
 
 variable "cloudtrail_bucket" {
   type        = string
