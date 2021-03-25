@@ -138,7 +138,6 @@ variable "monitor_readonly_user_name" {
 variable "config_sns_profile" {
   type        = string
   description = "The profile to use for the config/sns notifcation subscription command"
-  default     = ""
 }
 
 variable "aws_config_notification_emails" {
