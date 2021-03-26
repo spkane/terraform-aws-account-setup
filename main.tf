@@ -9,9 +9,5 @@ terraform {
       source = "hashicorp/template"
       version = "~> 2.2"
     }
-    null = {
-      source = "hashicorp/null"
-      version = "~> 3.1"
-    }
   }
 }

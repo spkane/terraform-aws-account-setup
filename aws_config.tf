@@ -30,6 +30,14 @@ resource "aws_sns_topic" "aws_config_updates_topic" {
   name  = "${data.aws_caller_identity.current.account_id}-terraform-aws-config-updates"
 }
 
+resource "aws_sns_topic_subscription" "sns_subscribe" {
+  count = length(var.aws_config_notification_emails) != 0 && var.enable_aws_config ? length(var.aws_config_notification_emails) : 0
+
+  topic_arn = aws_sns_topic.aws_config_updates_topic[0].arn
+  protocol  = "email"
+  endpoint  = element(var.aws_config_notification_emails, count.index)
+}
+
 resource "aws_config_delivery_channel" "aws_config_delivery_channel" {
   count          = var.enable_aws_config ? 1 : 0
   name           = "terraform_aws_config_delivery_channel"
@@ -60,18 +68,4 @@ resource "aws_iam_role_policy" "aws_config_iam_policy" {
     sns_topic_arn = aws_sns_topic.aws_config_updates_topic[0].arn
     s3_bucket_arn = aws_s3_bucket.aws_config_configuration_bucket[0].arn
   })
-}
-
-resource "null_resource" "sns_subscribe" {
-  depends_on = [aws_sns_topic.aws_config_updates_topic]
-
-  triggers = {
-    sns_topic_arn = aws_sns_topic.aws_config_updates_topic[0].arn
-  }
-
-  count = length(var.aws_config_notification_emails) != 0 && var.enable_aws_config ? length(var.aws_config_notification_emails) : 0
-
-  provisioner "local-exec" {
-    command = "aws sns subscribe --profile ${var.config_sns_profile} --topic-arn ${aws_sns_topic.aws_config_updates_topic[0].arn} --protocol email --notification-endpoint ${element(var.aws_config_notification_emails, count.index)}"
-  }
 }
