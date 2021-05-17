@@ -20,9 +20,13 @@ resource "aws_s3_bucket" "aws_config_configuration_bucket" {
   count  = var.enable_aws_config ? 1 : 0
   bucket = "${data.aws_caller_identity.current.account_id}-terraform-aws-config-bucket"
 
-  tags = merge(map("Project", "shared"),
-    map("ManagedBy", "Terraform"),
-  var.tags)
+  tags = merge(
+    {
+      "Project" = "shared",
+      "ManagedBy" = "Terraform",
+    },
+    var.tags
+  )
 }
 
 resource "aws_sns_topic" "aws_config_updates_topic" {
