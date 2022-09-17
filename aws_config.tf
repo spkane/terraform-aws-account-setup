@@ -56,7 +56,7 @@ resource "aws_iam_role" "aws_config_iam_role" {
 resource "aws_iam_role_policy_attachment" "aws_config_iam_policy_attachment" {
   count      = var.enable_aws_config ? 1 : 0
   role       = aws_iam_role.aws_config_iam_role[0].name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSConfigRole"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWS_ConfigRole"
 }
 
 resource "aws_iam_role_policy" "aws_config_iam_policy" {
